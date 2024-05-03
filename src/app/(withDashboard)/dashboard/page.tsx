@@ -3,19 +3,30 @@ import { getServerSession } from "next-auth";
 import Image from "next/image";
 
 const DashboardPage = async () => {
-  const session = await getServerSession(authOptions)
+  const session = await getServerSession(authOptions);
 
-  console.log(session)
+  //console.log(session)
 
   return (
     <div>
-      {
-        session?.user &&
+      {session?.user && (
         <>
-          <h1 className="text-4xl text-center mt-10">Welcome To {session?.user?.name} </h1>
-          <h1 className="text-4xl text-center mt-10"> {session?.user?.email} </h1>
-          <Image src={session?.user?.image} alt="" width={100} height={100} className="mx-auto rounded-full mt-5" /></>
-      }
+          <h1 className="text-4xl text-center mt-10">
+            Welcome To {session?.user?.name}
+          </h1>
+          <h1 className="text-4xl text-center mt-10">{session?.user?.email}</h1>
+          <Image
+            src={
+              session?.user?.image ||
+              "https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png"
+            }
+            alt=""
+            width={100}
+            height={100}
+            className="mx-auto rounded-full mt-5"
+          />
+        </>
+      )}
     </div>
   );
 };
